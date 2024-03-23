@@ -11,7 +11,9 @@ class MyAccount
         this.loginPassInput = page.locator('#password');
         this.loginButton = page.locator('input[name="login"]');
         this.usernameSignIn = page.locator('//p/strong');
-
+        this.registerEmailInput = page.locator('#reg_email');
+        this.registerPasswordInput = page.locator('#reg_password');
+        this.myAccountButton = page.locator('//*[@id="menu-item-50"]/a');
     }
 
     async verLoginheader()
@@ -38,5 +40,29 @@ class MyAccount
     {
         await expect(this.usernameSignIn).toHaveText(username);
     }
+
+    async isErrorDisplayed()
+    {
+        await expect(this.page.locator('.woocommerce-error')).toBeVisible();
+    }
+
+    async fillRegisterEmail(email) {
+        await this.registerEmailInput.type(email)
+    }
+
+    async fillRegisterPassword(password) {
+        await this.registerPasswordInput.type(password);
+    }
+
+    async clickMyAccount()
+    {
+        await this.myAccountButton.click();
+    }
+
+    async verDashboard()
+    {
+        await expect(this.page.locator('//*[@id="page-36"]/div/div[1]/nav/ul/li[1]/a')).toHaveText('Dashboard');
+    }
+
 }
 module.exports = { MyAccount };
